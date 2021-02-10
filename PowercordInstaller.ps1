@@ -87,3 +87,9 @@ if ($installed) {
 
             
 }
+$env:path += ";C:\Program Files\Git\bin"
+set-location -path C:\
+git clone https://github.com/powercord-org/powercord
+set-location -path C:\powercord
+npm i
+npm run plug
