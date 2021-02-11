@@ -1,10 +1,21 @@
-﻿clear
+﻿
+
+
+clear
 echo ""
 echo ""
 echo ""
 echo ""
 echo ""
 echo ""
+# die lehhren echos sind da damit der text nicht verdekt wird von der process anzeige
+
+
+
+
+#
+# Test ob DiscordCanary installiert ist... wenn nicht laden wir es herrunter und installieren es!
+#
 
 if (Get-Item -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\DiscordCanary' -ErrorAction SilentlyContinue) {
 
@@ -30,6 +41,16 @@ if (Get-Item -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\Di
 
 
 }
+
+
+
+
+
+
+#
+# Test ob Node.js installiert ist... wenn nicht laden wir es herrunter und installieren es!
+#
+
 $software = "Node.js";
 $installed = (Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Where { $_.DisplayName -eq $software }) -ne $null
 
@@ -59,6 +80,13 @@ if ($installed) {
             
 }
 
+
+
+#
+# Test ob Git in version 2.30.1 installiert ist... wenn nicht laden wir es herrunter und installieren es!
+# PS die version ist eigendlich egal ... nur ich habe auf anhieb keine lösung gefunden (gesucht :D)!
+#
+
 $software = "Git version 2.30.1";
 $installed = (Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Where { $_.DisplayName -eq $software }) -ne $null
 
@@ -87,9 +115,25 @@ if ($installed) {
 
             
 }
-$env:path += ";C:\Program Files\Git\bin"
-set-location -path C:\
-git clone https://github.com/powercord-org/powercord
-set-location -path C:\powercord
-npm i
-npm run plug
+
+
+
+#
+# da ja neue programme wie git und node.js dazu kommen könnten... lade ich einmal alle einträge aus 'Path'
+#
+
+$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
+
+
+
+#
+# Hier ist der code zum installieren von Powercord itself...
+# da ich diesen code über discord teile und powercord GEGEN die TOS von Discord ist.
+# habe ich den teil auskommentiert somit Technisch KEINEN PowercordInstaller verbreitet :D 
+#
+
+# set-location -path C:\
+# git clone https://github.com/powercord-org/powercord
+# set-location -path C:\powercord
+# npm i
+# npm run plug
